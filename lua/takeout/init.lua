@@ -31,6 +31,7 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
     end
 
     -- Set the key mapping
+    vim.cmd [[:echo lhs]]
     vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
 end
 
