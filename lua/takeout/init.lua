@@ -12,8 +12,8 @@ local last_command = nil
 
 -- Store the command for repeat
 M.wrapped_callback = function(callback)
-    last_command = callback
     callback()
+    last_command = callback
 end
 
 -- Enhanced 'bag' function to replace 'vim.keymap.set'
