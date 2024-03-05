@@ -10,12 +10,6 @@ local opts = {
 -- Function to store the last command
 local last_command = nil
 
--- Store the command for repeat
-M.wrapped_callback = function(callback)
-    callback()
-    last_command = callback
-end
-
 -- Enhanced 'bag' function to replace 'vim.keymap.set'
 -- It sets the keymap and makes the command repeatable
 M.bag = function(mode, lhs, rhs, keymap_opts)
@@ -30,10 +24,14 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
         end
     end
 
-    -- Set the key mapping
-    vim.keymap.set(mode, lhs, function()
-        M.wrapped_callback(callback)
-    end, keymap_opts)
+    -- Correctly wrap the callback to ensure last_command is updated each time
+    local function wrapped_callback()
+        last_command = callback -- Update last_command each time this is invoked
+        callback()
+    end
+
+    -- Set the key mapping to our wrapped callback
+    vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
 end
 
 -- Function to repeat the last command
