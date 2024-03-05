@@ -1,4 +1,4 @@
--- takeout.nvim.lua
+-- takeout
 
 local M = {}
 
@@ -9,6 +9,12 @@ local opts = {
 
 -- Function to store the last command
 local last_command = nil
+
+-- Store the command for repeat
+M.wrapped_callback = function(callback)
+    last_command = callback
+    callback()
+end
 
 -- Enhanced 'bag' function to replace 'vim.keymap.set'
 -- It sets the keymap and makes the command repeatable
@@ -24,14 +30,10 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
         end
     end
 
-    -- Store the command for repeat
-    local wrapped_callback = function()
-        last_command = callback
-        callback()
-    end
-
     -- Set the key mapping
-    vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
+    vim.keymap.set(mode, lhs, function()
+        M.wrapped_callback(callback)
+    end, keymap_opts)
 end
 
 -- Function to repeat the last command
@@ -42,9 +44,9 @@ M.repeat_last_command = function()
 end
 
 -- Setup function to configure the plugin and set the repeat key
-M.setup = function(opts)
-    opts = opts or {}
-    for k, v in pairs(opts) do
+M.setup = function(user_opts)
+    user_opts = user_opts or {}
+    for k, v in pairs(user_opts) do
         if opts[k] ~= nil then
             opts[k] = v
         end
