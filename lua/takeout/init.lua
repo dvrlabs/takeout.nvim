@@ -34,10 +34,22 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
     vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
 end
 
--- Function to repeat the last command
+-- -- Function to repeat the last command
+-- M.repeat_last_command = function()
+--     if last_command then
+--         last_command()
+--     end
+-- end
+
+-- Function to repeat the last command with support for counted repeats
 M.repeat_last_command = function()
     if last_command then
-        last_command()
+        -- Get the count provided by the user or default to 1 if no count was provided
+        local count = vim.v.count > 0 and vim.v.count or 1
+        -- Execute the last_command 'count' times
+        for _ = 1, count do
+            last_command()
+        end
     end
 end
 
