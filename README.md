@@ -16,12 +16,16 @@ Hitting the repeat key will do the command again.
 
 Instead of using vim.keymap.set(), use takeout.
 
+This is how I use it in my nvim-lspconfig:
+
 ```lua
 local takeout = require('takeout')
-takeout.bag('n', '<leader>e', function() print("Example command") end, {noremap = true, silent = true})
+takeout.bag('n', '<leader>lp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious diagnostic message' })
+takeout.bag('n', '<leader>ln', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
 ```
 
-Now do LEADER + E to __bag__ your __takeout__. Access bag with the repeat command ','
+For all keymaps created with bag(), using the keymap once changes the last stored keymap in the bag.
+
 
 # repeat_key
 
@@ -32,14 +36,10 @@ You should be able to remap the repeat key from ',' by using repeat_key in the o
     'dvrlabs/takeout.nvim', 
     opts = {
         -- If you wanted F5 to repeat, as an example
-        repeat_key = '<F5>'
+        repeat_key = '<F5>',
     }
 }
 ```
-# Why
-
-I wanted a way to be able to repeat with a single key-stroke the last thing I did.
-Specifically for goto next diagnostic, and goto last diagnostic in LSP.
 
 
 
