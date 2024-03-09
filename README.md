@@ -41,5 +41,8 @@ You should be able to remap the repeat key from ',' by using repeat_key in the o
 }
 ```
 
+# Other Features
+
+- Accepts a count. Do '5,' to repeat 5 times.
 
 
