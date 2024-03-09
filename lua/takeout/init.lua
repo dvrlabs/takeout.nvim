@@ -4,7 +4,8 @@ local M = {}
 
 -- Default options
 local opts = {
-    repeat_key = ',', -- Default repeat key
+    -- Default repeat key
+    repeat_key = ',',
 }
 
 -- Function to store the last command
@@ -33,13 +34,6 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
     -- Set the key mapping to our wrapped callback
     vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
 end
-
--- -- Function to repeat the last command
--- M.repeat_last_command = function()
---     if last_command then
---         last_command()
---     end
--- end
 
 -- Function to repeat the last command with support for counted repeats
 M.repeat_last_command = function()

@@ -27,5 +27,19 @@ Now do LEADER + E to __bag__ your __takeout__. Access bag with the repeat comman
 
 You should be able to remap the repeat key from ',' by using repeat_key in the opts table. 
 
+```lua
+{ 
+    'dvrlabs/takeout.nvim', 
+    opts = {
+        -- If you wanted F5 to repeat, as an example
+        repeat_key = '<F5>'
+    }
+}
+```
+# Why
+
+I wanted a way to be able to repeat with a single key-stroke the last thing I did.
+Specifically for goto next diagnostic, and goto last diagnostic in LSP.
+
 
 
