@@ -23,6 +23,20 @@ local takeout = require('takeout')
 takeout.bag('n', '<leader>lp', vim.diagnostic.goto_prev, { desc = 'Go to [P]revious diagnostic message' })
 takeout.bag('n', '<leader>ln', vim.diagnostic.goto_next, { desc = 'Go to [N]ext diagnostic message' })
 ```
+Can also be used like this:
+
+```lua
+local takeout = require('takeout')
+takeout.bag('n', '<leader>p', ':Lazy<CR>', { desc = '[P]ackage Manager' })
+```
+
+> [!IMPORTANT]
+> The below keymap won't work. Just use the ':' syntax and pass in silent = true option
+>
+> ```lua
+> local takeout = require('takeout')
+> takeout.bag('n', '<leader>p', '<Cmd>Lazy<CR>', { desc = '[P]ackage Manager' })
+> ```
 
 For all keymaps created with bag(), using the keymap once changes the last stored keymap in the bag.
 
