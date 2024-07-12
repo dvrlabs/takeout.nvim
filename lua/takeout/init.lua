@@ -6,6 +6,9 @@ local M = {}
 local opts = {
     -- Default repeat key
     repeat_key = ',',
+    default_none_bagged = function()
+        vim.api.nvim_command 'normal! @@'
+    end,
 }
 
 -- Function to store the last command
@@ -44,6 +47,8 @@ M.repeat_last_command = function()
         for _ = 1, count do
             last_command()
         end
+    else
+        opts.default_none_bagged()
     end
 end
 
