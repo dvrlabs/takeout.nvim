@@ -7,7 +7,7 @@ local opts = {
     -- Default repeat key
     repeat_key = ',',
     default_none_bagged = function()
-        local last_macro = vim.fn.getreg '@'
+        local last_macro = vim.fn.getreg '@@'
         if last_macro ~= nil and last_macro ~= '' then
             vim.api.nvim_out_write('Last macro: ' .. last_macro .. '\n')
             vim.api.nvim_command 'normal! @@'
