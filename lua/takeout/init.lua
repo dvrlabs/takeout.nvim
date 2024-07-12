@@ -9,8 +9,8 @@ local opts = {
     default_none_bagged = function()
         local last_macro = vim.fn.getreg '@'
         if last_macro ~= nil and last_macro ~= '' then
-            vim.fn.setreg('@', last_macro)
-            vim.api.nvim_command 'normal! @@'
+            vim.fn.setreg('t', last_macro)
+            vim.api.nvim_command 'normal! @t'
         end
     end,
 }
