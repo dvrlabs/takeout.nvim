@@ -48,7 +48,12 @@ M.repeat_last_command = function()
             last_command()
         end
     else
-        opts.default_none_bagged()
+        -- Get the count provided by the user or default to 1 if no count was provided
+        local count = vim.v.count > 0 and vim.v.count or 1
+        -- Execute the default_none_bagged 'count' times
+        for _ = 1, count do
+            opts.default_none_bagged()
+        end
     end
 end
 
