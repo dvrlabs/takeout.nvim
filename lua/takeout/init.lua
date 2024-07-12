@@ -7,10 +7,7 @@ local opts = {
     -- Default repeat key
     repeat_key = ',',
     default_none_bagged = function()
-        local last_macro = vim.fn.getreg '@'
-        if last_macro ~= '' then
-            vim.api.nvim_exec(last_macro, false)
-        end
+        vim.api.nvim_command 'normal! @@'
     end,
 }
 
