@@ -8,6 +8,7 @@ local opts = {
     repeat_key = ',',
     default_none_bagged = function()
         local last_macro = vim.fn.getreg '@'
+        vim.api.nvim_out_write(last_macro)
         if last_macro ~= '' then
             vim.api.nvim_command 'normal! @@'
         end
