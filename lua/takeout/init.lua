@@ -5,11 +5,16 @@ local M = {}
 -- Default options
 local opts = {
     -- Default repeat key
-    repeat_key = ',',
-    default_none_bagged = function()
-        vim.api.nvim_echo({ { 'Nothing bagged.', 'WarningMsg' } }, true, {})
-    end,
+    repeat_key = '.',
+    empty_bag = '<leader>.',
+    use_time_limit = false,
+    time_limit_seconds = 10,
 }
+
+-- Define function as a method (using `:` for implicit `self`)
+function opts:default_none_bagged()
+    vim.api.nvim_feedkeys(self.repeat_key, 'n', true) -- Use `self` to access the table's value
+end
 
 -- Function to store the last command
 local last_command = nil
@@ -38,6 +43,8 @@ M.bag = function(mode, lhs, rhs, keymap_opts)
     vim.keymap.set(mode, lhs, wrapped_callback, keymap_opts)
 end
 
+local timer = vim.loop.new_timer()
+
 -- Function to repeat the last command with support for counted repeats
 M.repeat_last_command = function()
     if last_command then
@@ -47,14 +54,24 @@ M.repeat_last_command = function()
         for _ = 1, count do
             last_command()
         end
+
+        if opts.use_time_limit then
+            if timer then
+                timer:start(opts.time_limit_seconds * 1000, 0, vim.schedule_wrap(M.empty_bag))
+            end
+        end
     else
         -- Get the count provided by the user or default to 1 if no count was provided
         local count = vim.v.count > 0 and vim.v.count or 1
         -- Execute the default_none_bagged 'count' times
         for _ = 1, count do
-            opts.default_none_bagged()
+            opts:default_none_bagged()
         end
     end
+end
+
+M.empty_bag = function()
+    last_command = nil
 end
 
 -- Setup function to configure the plugin and set the repeat key
@@ -73,6 +90,7 @@ end
 M.set_repeat_key = function()
     -- Set the new key mapping for repeating the last command
     vim.keymap.set('n', opts.repeat_key, M.repeat_last_command, { noremap = true, silent = true })
+    vim.keymap.set('n', opts.empty_bag, M.empty_bag, { noremap = true, silent = true })
 end
 
 return M
