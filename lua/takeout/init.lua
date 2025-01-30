@@ -7,8 +7,8 @@ local opts = {
     -- Default repeat key
     repeat_key = '.',
     empty_bag = '<leader>.',
-    use_time_limit = false,
-    time_limit_seconds = 10,
+    use_time_limit = true,
+    time_limit_seconds = 15,
 }
 
 -- Define function as a method (using `:` for implicit `self`)
