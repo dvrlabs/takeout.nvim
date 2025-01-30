@@ -7,7 +7,7 @@ local opts = {
     -- Default repeat key
     repeat_key = ',',
     default_none_bagged = function()
-        vim.api.nvim_echo({ { 'Nothing selected', 'WarningMsg' } }, true, {})
+        vim.api.nvim_echo({ { 'Nothing bagged.', 'WarningMsg' } }, true, {})
     end,
 }
 
