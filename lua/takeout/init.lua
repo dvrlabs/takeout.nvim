@@ -90,7 +90,7 @@ end
 M.set_repeat_key = function()
     -- Set the new key mapping for repeating the last command
     vim.keymap.set('n', opts.repeat_key, M.repeat_last_command, { noremap = true, silent = true })
-    vim.keymap.set('n', opts.empty_bag, M.empty_bag, { noremap = true, silent = true })
+    vim.keymap.set('n', opts.empty_bag, M.empty_bag, { desc = 'Empty Takeout', noremap = true, silent = true })
 end
 
 return M
